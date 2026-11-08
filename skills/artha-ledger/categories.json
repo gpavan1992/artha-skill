@@ -1,0 +1,13 @@
+{
+  "Groceries": ["instamart", "blinkit", "zepto", "bigbasket", "dmart", "avenue supermarts", "ratnadeep", "more retail", "amazon grocery", "jiomart", "fresh"],
+  "Food delivery": ["swiggy", "zomato", "eatsure"],
+  "Dining": ["restaurant", "cafe", "foods", "kitchen", "biryani", "pizza", "starbucks", "dhaba", "bakery"],
+  "Fuel": ["fuel", "petro", "petrol", "oil", "hpcl", "bpcl", "iocl", "indian oil", "shell", "filling station"],
+  "Shopping": ["amazon", "flipkart", "myntra", "lifestyle", "ajio", "nykaa", "westside", "pantaloons", "decathlon", "ikea", "croma", "reliance digital"],
+  "Kids": ["babyhug", "firstcry", "kydzi", "hamleys", "toys", "school"],
+  "Subscriptions & tools": ["anthropic", "claude", "openai", "railway", "netflix", "spotify", "prime", "hotstar", "youtube", "google", "apple.com", "microsoft", "github", "notion", "standing instruction", " si "],
+  "Travel": ["uber", "ola", "rapido", "irctc", "makemytrip", "indigo", "air india", "goibibo", "cleartrip", "redbus", "fastag"],
+  "Health": ["apollo", "pharmacy", "medplus", "1mg", "netmeds", "hospital", "clinic", "diagnostic", "lab"],
+  "Bills & utilities": ["electricity", "tsspdcl", "airtel", "jio", "act fibernet", "broadband", "gas", "water", "bescom", "recharge"],
+  "Services": ["services", "salon", "urban company", "laundry", "repair"]
+}

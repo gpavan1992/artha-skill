@@ -1,0 +1,16 @@
+{
+ "stocks": [
+  {
+   "symbol": "RELIANCE",
+   "value": 12000
+  },
+  {
+   "symbol": "INFY",
+   "units": 8
+  },
+  {
+   "symbol": "ITC.NS",
+   "value": 5000
+  }
+ ]
+}

@@ -1,0 +1,50 @@
+[
+ {
+  "id": "a1",
+  "date": "2026-10-03",
+  "subject": "Transaction alert",
+  "text": "Rs. 248.00 has been debited from your HDFC Bank Credit Card ending 1111 towards BLINKIT on 03 Oct, 2026 at 07:42:10."
+ },
+ {
+  "id": "a2",
+  "date": "2026-10-04",
+  "subject": "Transaction alert for your ICICI Bank Credit Card",
+  "text": "INR 4,075.95 used for a transaction of your ICICI Bank Credit Card XX2222 on 04-Oct-26. Info: AMAZON PAY INDIA. The Available Credit Limit is INR 1,00,000."
+ },
+ {
+  "id": "a3",
+  "date": "2026-10-05",
+  "subject": "Transaction Alert from SBI Card",
+  "text": "Rs.3000.00 spent on your SBI Credit Card ending 3333 at CITY FUEL STATION on 05/10/26. Trxn. not done by you? Report at ..."
+ },
+ {
+  "id": "a4",
+  "date": "2026-10-05",
+  "subject": "Transaction Alert from SBI Card",
+  "text": "Rs.3000.00 spent on your SBI Credit Card ending 3333 at CITY FUEL STATION on 05/10/26. Trxn. not done by you? Report at ..."
+ },
+ {
+  "id": "a5",
+  "date": "2026-10-06",
+  "subject": "UPI txn alert",
+  "text": "Rs.1000.00 has been debited from account **7777 to VPA sample.person@okbank SAMPLE PERSON on 06-10-26."
+ },
+ {
+  "id": "a6",
+  "date": "2026-10-07",
+  "subject": "Your OTP",
+  "text": "OTP 123456 for transaction of Rs. 799.00 at NETFLIX on your card ending 4444."
+ },
+ {
+  "id": "a7",
+  "date": "2026-10-08",
+  "subject": "Refund processed",
+  "text": "Rs. 335.00 has been credited back (refund) to your ICICI Bank Credit Card XX2222 from AMAZON."
+ },
+ {
+  "id": "a8",
+  "date": "2026-10-09",
+  "subject": "Alert",
+  "text": "Rs. 799.00 has been debited from your HDFC Bank Credit Card ending 1111 towards NETFLIX on 09 Oct, 2026."
+ }
+]

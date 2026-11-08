@@ -1,0 +1,53 @@
+{
+ "realized_ltcg_this_fy": 0,
+ "lots": [
+  {
+   "asset": "Sample ELSS Fund",
+   "type": "elss",
+   "buy_date": "2021-06-10",
+   "units": 150,
+   "cost": 30000,
+   "current_price": 260
+  },
+  {
+   "asset": "Sample ELSS Fund",
+   "type": "elss",
+   "buy_date": "2024-03-10",
+   "units": 60,
+   "cost": 21000,
+   "current_price": 260
+  },
+  {
+   "asset": "Sample ELSS Fund",
+   "type": "elss",
+   "buy_date": "2026-01-10",
+   "units": 20,
+   "cost": 5400,
+   "current_price": 260
+  },
+  {
+   "asset": "Sample Equity Fund",
+   "type": "equity",
+   "buy_date": "2025-06-01",
+   "units": 500,
+   "cost": 100000,
+   "current_price": 240
+  },
+  {
+   "asset": "Sample Gold FoF",
+   "type": "other_unlisted",
+   "buy_date": "2025-02-01",
+   "units": 1000,
+   "cost": 21000,
+   "current_price": 19.5
+  },
+  {
+   "asset": "Sample US Stock (vested RSU)",
+   "type": "foreign_share",
+   "buy_date": "2026-03-10",
+   "units": 10,
+   "cost": 75000,
+   "current_price": 8200
+  }
+ ]
+}
