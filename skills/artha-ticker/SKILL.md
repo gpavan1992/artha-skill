@@ -44,7 +44,7 @@ prices.py market [--date 2026-11-10T11:00]  # open/closed now (IST), reason, nex
 4. **Mutual fund rows in search.** Hidden: they aren't reliable NAVs. Use artha-navigator.
 5. **Stale symbols.** If the last price is more than 5 days old, `quote` flags it (suspended,
    delisted or wrong symbol). Don't present it as current.
-6. **Calendar gaps.** `data/nse_holidays.json` holds NSE's published list (2026 loaded).
+6. **Calendar gaps.** `data/nse_holidays.json` holds a list compiled from public NSE holiday tables (2026 loaded). Tell the user to confirm any date they plan around on nseindia.com.
    When a year is missing, `market` says so and assumes weekends only. When NSE publishes the
    next year's list (usually in December), web-search it, cross-check two sources, and add it
    in the same format, including special sessions like Muhurat trading.

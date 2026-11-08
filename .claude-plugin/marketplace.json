@@ -1,7 +1,7 @@
 {
   "name": "artha",
   "description": "Artha: skills for Indian investors. Real mutual fund NAV history, NSE/BSE prices and calendar, company financials, news and filings, a rules-based screener, fund overlap, capital-gains estimates and spend parsing. Not investment advice.",
-  "owner": { "name": "gpavan1992" },
+  "owner": { "name": "Pavan Galiveeti" },
   "plugins": [
     {
       "name": "artha-skill",

@@ -1,9 +1,9 @@
 {
   "name": "artha-skill",
   "displayName": "Artha",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Eight skills for Indian investors: real mutual fund NAV history, NSE/BSE prices and calendar, company financials, news and filings, a rules-based screener, fund overlap, capital-gains estimates and spend parsing. Not investment advice.",
-  "author": { "name": "gpavan1992", "url": "https://github.com/gpavan1992" },
+  "author": { "name": "Pavan Galiveeti", "url": "https://github.com/gpavan1992" },
   "homepage": "https://github.com/gpavan1992/artha-skill",
   "repository": "https://github.com/gpavan1992/artha-skill",
   "license": "MIT",
