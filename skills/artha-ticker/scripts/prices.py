@@ -12,7 +12,7 @@ HOLIDAYS = os.path.join(HERE, "..", "data", "nse_holidays.json")
 CACHE = os.environ.get("PRICES_CACHE", os.path.join(os.getcwd(), ".prices-cache"))
 CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range={rng}&interval={iv}&events=div%7Csplit"
 SEARCH = "https://query2.finance.yahoo.com/v1/finance/search?q={q}&quotesCount=8&newsCount=0"
-UA = {"User-Agent": "Mozilla/5.0 (artha-ticker; personal portfolio analysis)"}
+UA = {"User-Agent": "Mozilla/5.0 (compatible; artha-skill/0.1.2; +https://github.com/gpavan1992/artha-skill)"}
 IST = dt.timezone(dt.timedelta(hours=5, minutes=30))
 BENCHMARKS = {"nifty50": "^NSEI", "nifty500": "^CRSLDX", "banknifty": "^NSEBANK"}
 

@@ -2,6 +2,14 @@
 
 All notable changes are listed here. Format: [Keep a Changelog](https://keepachangelog.com), versions follow [SemVer](https://semver.org).
 
+## [0.1.2] - 2026-11-08
+
+### Changed
+- Every request now sends a self-identifying User-Agent. Previously `artha-scout` and `artha-pulse` sent a browser string, and `artha-ticker` and `artha-analyst` started theirs with `Mozilla/5.0`
+- `artha-pulse`: official NSE filings are now opt-in (`--nse`). NSE refuses self-identifying clients, so the browser-style request used for them is no longer the default. Claude asks before using it
+- README: new "Responsible data use" section; Data Sources and Privacy tables updated; roadmap notes that NSE publishes the next year's holiday list in late December
+- `tests/static_check.py` fails if a browser-style User-Agent appears outside the opt-in NSE call
+
 ## [0.1.1] - 2026-11-08
 
 ### Added

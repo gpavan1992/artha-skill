@@ -8,7 +8,7 @@ from urllib.parse import quote
 TS = ("https://query2.finance.yahoo.com/ws/fundamentals-timeseries/v1/finance/timeseries/{s}"
       "?type={t}&period1=1420070400&period2=" + str(int(time.time()) + 86400))
 CHART = "https://query1.finance.yahoo.com/v8/finance/chart/{s}?range=10y&interval=1mo&events=split"
-UA = {"User-Agent": "Mozilla/5.0 (artha-analyst; personal research)"}
+UA = {"User-Agent": "Mozilla/5.0 (compatible; artha-skill/0.1.2; +https://github.com/gpavan1992/artha-skill)"}
 CACHE = os.environ.get("FUND_CACHE", os.path.join(os.getcwd(), ".fund-cache"))
 A = ["TotalRevenue", "OperatingIncome", "NetIncome", "DilutedEPS", "TotalDebt", "StockholdersEquity", "FreeCashFlow", "OperatingCashFlow"]
 Q = ["TotalRevenue", "OperatingIncome", "NetIncome", "DilutedEPS"]

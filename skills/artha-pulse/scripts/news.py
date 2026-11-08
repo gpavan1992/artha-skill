@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""artha-pulse: what happened to NSE-listed companies — official NSE announcements first,
-then Google News (India) headlines that actually name the company. Stdlib only."""
+"""artha-pulse: what happened to NSE-listed companies — Google News (India) headlines that actually name the company,
+plus official NSE announcements on request (--nse). Stdlib only."""
 import argparse, datetime as dt, email.utils, html, json, os, re, sys, time, urllib.request
 from http.cookiejar import CookieJar
 from urllib.parse import quote
 
-UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36"
+UA = "Mozilla/5.0 (compatible; artha-skill/0.1.2; +https://github.com/gpavan1992/artha-skill)"
+NSE_UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36"   # only for the opt-in --nse call: NSE refuses self-identifying clients
 NSE = "https://www.nseindia.com/api/corporate-announcements?index=equities&symbol={s}"
 GN = "https://news.google.com/rss/search?q={q}+when:{d}d&hl=en-IN&gl=IN&ceid=IN:en"
 YS = "https://query2.finance.yahoo.com/v1/finance/search?q={q}&quotesCount=3&newsCount=0"
@@ -50,9 +51,9 @@ def short_name(name):
 def nse_items(sym, since):
     jar = CookieJar(); op = urllib.request.build_opener(urllib.request.HTTPCookieProcessor(jar))
     try:
-        try: op.open(urllib.request.Request("https://www.nseindia.com/", headers={"User-Agent": UA}), timeout=15)
+        try: op.open(urllib.request.Request("https://www.nseindia.com/", headers={"User-Agent": NSE_UA}), timeout=15)
         except Exception: pass                          # homepage often 403s; the API usually still answers
-        raw = json.loads(fetch(NSE.format(s=quote(sym)), f"nse-{sym}.json", 60, op, {"Referer": "https://www.nseindia.com/", "Accept": "application/json"}))
+        raw = json.loads(fetch(NSE.format(s=quote(sym)), f"nse-{sym}.json", 60, op, {"User-Agent": NSE_UA, "Referer": "https://www.nseindia.com/", "Accept": "application/json"}))
     except Exception as e:
         return None, f"NSE announcements unavailable ({type(e).__name__})"
     out = []
@@ -90,14 +91,17 @@ def main():
     p.add_argument("symbols", nargs="+", help="NSE symbols, e.g. INFY RELIANCE")
     p.add_argument("--days", type=int, default=7); p.add_argument("--max-per-symbol", type=int, default=6)
     p.add_argument("--state", help="JSON file of item keys already shown; only new items are returned and the file is updated")
+    p.add_argument("--nse", action="store_true", help="also fetch official NSE filings. Off by default: NSE only serves browser-like clients, so this sends a browser User-Agent")
     p.add_argument("--no-broker-calls", action="store_true", help="drop brokerage buy/sell/target headlines")
     p.add_argument("--out"); p.add_argument("--json", action="store_true"); a = p.parse_args()
     since = dt.datetime.now(IST).date() - dt.timedelta(days=a.days)
     seen = set(json.load(open(a.state))) if a.state and os.path.exists(a.state) else set()
     result, notes = [], []
+    if not a.nse:
+        notes.append("official NSE filings are off (add --nse to include them; NSE only serves browser-like clients)")
     for raw in a.symbols:
         sym = raw.upper().replace(".NS", ""); name = company_name(sym)
-        off, e1 = nse_items(sym, since); heads, e2 = gn_items(sym, name, a.days, since)
+        off, e1 = nse_items(sym, since) if a.nse else ([], None); heads, e2 = gn_items(sym, name, a.days, since)
         for e in (e1, e2):
             if e: notes.append(f"{sym}: {e}")
         items = (off or []) + heads
