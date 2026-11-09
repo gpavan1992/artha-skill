@@ -186,8 +186,9 @@ Then ask in plain language:
 
 ### Option 2: try it for one session
 
+Clone the repository from [GitHub](https://github.com/gpavan1992/artha-skill) (the green **Code** button), then start Claude Code with the plugin folder:
+
 ```bash
-git clone https://github.com/gpavan1992/artha-skill
 claude --plugin-dir ./artha-skill
 ```
 
