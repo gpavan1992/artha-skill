@@ -32,7 +32,7 @@ claude plugin validate --strict . # manifests and skills, needs Claude Code
 4. **Warn, convert or refuse. Never guess.** If a number is stale, converted, approximate or missing, say so in the output. Do not fill gaps from memory.
 5. **`name` in `SKILL.md` frontmatter must equal the folder name**, and the description must say when to use the skill.
 6. **Tax rules carry their source.** If you change a rate, threshold or holding period, cite the source in the pull request and update the table in the README and in `artha-tax/SKILL.md`.
-7. **Public endpoints are unofficial.** Handle failures explicitly; keep caches short; identify the tool in User-Agent where a source requires it.
+7. **Public endpoints are unofficial.** Handle failures explicitly, keep caches short, and send the self-identifying User-Agent on every request. The only exception is the opt-in NSE filings call in `artha-pulse` (`--nse`): NSE refuses self-identifying clients, so it stays off by default, and `tests/static_check.py` fails if a browser-style User-Agent appears anywhere else.
 
 ## Adding or changing a skill
 

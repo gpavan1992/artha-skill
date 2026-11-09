@@ -63,7 +63,7 @@ Annual and quarterly revenue, profit and operating margin, growth, diluted EPS, 
 
 ### 📰 artha-pulse: why did it move?
 
-Official NSE announcements (results, dividends, orders, management changes, ratings) plus news headlines that actually name the company, ranked by importance. Tracks what you have already seen so repeat runs show only what is new.
+News headlines that actually name the company, ranked by importance, plus official NSE announcements (results, dividends, orders, management changes, ratings) when you opt in with `--nse`. Tracks what you have already seen so repeat runs show only what is new.
 
 ### 🔎 artha-scout: screen against your rules
 
@@ -92,12 +92,20 @@ Artha reads public data only. No account, no login, no API key.
 | **AMFI** (`NAVAll.txt`) | navigator | Active scheme list, ISINs, daily NAV | No |
 | **mfapi.in** | navigator | Full daily NAV history per scheme | No |
 | **Yahoo Finance** (public endpoints) | ticker, navigator, analyst | Prices, history, splits, index levels, fundamentals, USD/INR | No |
-| **NSE corporate announcements** | pulse | Official company filings | No |
+| **NSE corporate announcements** (opt-in) | pulse | Official company filings, only with `--nse` | No |
 | **Google News** (India RSS) | pulse | Headlines that name the company | No |
 | **NSE index lists** | scout | Constituents of Nifty 50/100/200/500, Midcap 150, Smallcap 100 | No |
-| **Bundled holiday list** | ticker | NSE trading holidays and special sessions (2026), compiled from public tables | n/a |
+| **Bundled holiday list** | ticker | NSE trading holidays and special sessions (2026), compiled from public tables. 2027 is added when NSE publishes it (late December); until then the calendar says so | n/a |
 
 Yahoo, Google and NSE endpoints are public but unofficial. They can change or rate-limit automated requests. When one does, the skills say so instead of returning a stale number. Confirm any date you plan around, such as a holiday, on [nseindia.com](https://www.nseindia.com).
+
+### Responsible data use
+
+- **Artha identifies itself.** Every request carries the User-Agent `artha-skill/<version> (+repository URL)`. The one exception is the opt-in NSE call below.
+- **NSE filings are opt-in.** NSE refuses clients that identify themselves, so `--nse` has to send a browser-style User-Agent and a cookie handshake to get an answer. It is off by default, Claude asks before using it, and whether to use it is your decision: check NSE's terms first. Everything else in Artha works without it.
+- **Low volume.** Requests run one at a time with a short pause between uncached fetches, and results are cached on disk (minutes to a day) so repeat questions do not hit the source again.
+- **No logins, no workarounds.** Artha never uses credentials, solves CAPTCHAs or touches an account. When a source blocks or fails, it says so instead of returning a stale number.
+- **Personal analysis.** Artha is built for analysing your own portfolio. It does not host, resell or redistribute any provider's data, and each provider's terms apply to how you use it.
 
 ---
 
@@ -277,8 +285,10 @@ Artha ships with invented sample files. Copy one, replace the values with yours,
 | Card numbers, UPI IDs and payee names never output | ✅ |
 | Bundled examples use invented data only | ✅ |
 | Read-only: no orders, no account access | ✅ |
+| Self-identifying User-Agent on every request, except opt-in NSE filings | ✅ |
 | Open source: every line auditable | ✅ |
 | Data-source guarantees | ○ Public, unofficial endpoints; can change without notice |
+| NSE official filings | ○ Opt-in (`--nse`); NSE only serves browser-style requests |
 | Tax outputs accepted for filing | ○ Estimates only; confirm with a chartered accountant |
 
 **On regulation:** Artha is not a SEBI-registered investment adviser or research analyst, and nothing it produces is investment advice.
@@ -292,7 +302,7 @@ Artha ships with invented sample files. Copy one, replace the values with yours,
 - ✅ Real fund NAV history, returns and portfolio-vs-benchmark series
 - ✅ NSE/BSE prices, history and trading calendar (2026)
 - ✅ Reported financials with currency and bonus/split traps flagged
-- ✅ NSE announcements plus company-named news
+- ✅ Company-named news, with official NSE announcements on request (`--nse`)
 - ✅ Rules-based screener over seven NSE indices
 - ✅ Fund look-through overlap with disclosure warnings
 - ✅ FY 2026-27 capital-gains estimates and ELSS lock-ins
@@ -301,10 +311,10 @@ Artha ships with invented sample files. Copy one, replace the values with yours,
 
 **v0.2: Next**
 
-- [ ] 2027 NSE holiday list, and verify the calendar against NSE's own circular
+- [ ] 2027 NSE holiday list, checked against NSE's circular (NSE published the 2026 list in late December 2025)
 - [ ] Price and rule alerts between runs
 - [ ] SIP-aware returns (XIRR) alongside the weekly portfolio series
-- [ ] Submit to the Claude plugin directory after real-world use
+- [ ] Claude plugin directory listing
 
 **v1.0: Future**
 

@@ -48,6 +48,12 @@ for d in skills:
         except SyntaxError as e:
             errors.append(f"{py.relative_to(root)}: {e}")
 
+# honesty guard: a browser-style User-Agent is allowed only for the opt-in NSE call in artha-pulse
+for py in sorted(root.glob("skills/*/scripts/*.py")):
+    for i, line in enumerate(py.read_text(encoding="utf-8").splitlines(), 1):
+        if "Chrome/" in line and not (py.name == "news.py" and line.startswith("NSE_UA")):
+            errors.append(f"{py.relative_to(root)}:{i}: browser-style User-Agent outside the opt-in NSE call")
+
 if errors:
     print("FAILED:\n  " + "\n  ".join(errors))
     sys.exit(1)

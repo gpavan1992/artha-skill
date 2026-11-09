@@ -3,7 +3,7 @@
 Universe from NSE index lists; numbers from the artha-analyst skill. Stdlib only."""
 import argparse, csv, importlib.util, io, json, os, sys, urllib.request
 
-UA = {"User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36"}
+UA = {"User-Agent": "Mozilla/5.0 (compatible; artha-skill/0.1.2; +https://github.com/gpavan1992/artha-skill)"}
 LISTS = {"nifty50": "ind_nifty50list", "niftynext50": "ind_niftynext50list", "nifty100": "ind_nifty100list",
          "nifty200": "ind_nifty200list", "nifty500": "ind_nifty500list", "midcap150": "ind_niftymidcap150list",
          "smallcap100": "ind_niftysmallcap100list"}
