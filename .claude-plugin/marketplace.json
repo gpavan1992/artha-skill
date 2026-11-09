@@ -1,6 +1,6 @@
 {
   "name": "artha",
-  "description": "Artha: skills for Indian investors. Real mutual fund NAV history, NSE/BSE prices and calendar, company financials, news and filings, a rules-based screener, fund overlap, capital-gains estimates and spend parsing. Not investment advice.",
+  "description": "Artha: skills for Indian investors. Real mutual fund NAV history, NSE/BSE prices and calendar, company financials, news and NSE filings on request, a rules-based screener, fund overlap, capital-gains estimates and spend parsing. Not investment advice.",
   "owner": { "name": "Pavan Galiveeti" },
   "plugins": [
     {
