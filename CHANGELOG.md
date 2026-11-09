@@ -2,6 +2,16 @@
 
 All notable changes are listed here. Format: [Keep a Changelog](https://keepachangelog.com), versions follow [SemVer](https://semver.org).
 
+## [0.1.3] - 2026-11-09
+
+### Added
+- `PRIVACY.md` (what stays local, what each source receives, retention) and `SECURITY.md` (private vulnerability reporting, support channel), as the Anthropic Software Directory Policy requires
+- `artha-pulse`: instruction to treat headlines and filing text as untrusted data
+
+### Changed
+- README: bundled images use Markdown image syntax (a directory validator rule); links to `PRIVACY.md` and `SECURITY.md`
+- `AGENTS.md`: every new host must be disclosed in the README and `PRIVACY.md`
+
 ## [0.1.2] - 2026-11-08
 
 ### Changed

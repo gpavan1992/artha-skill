@@ -11,10 +11,12 @@ Artha is a Claude Code plugin: eight skills for Indian investors. Each skill is 
 ```
 .claude-plugin/        plugin.json + marketplace.json
 skills/<artha-name>/   SKILL.md, scripts/, *.example.json
-screenshots/           README images (generated from real output on sample data)
+PRIVACY.md, SECURITY.md  what leaves the machine; how to report problems
 tests/smoke.sh         live checks against public data (needs network)
 tests/static_check.py  offline checks: manifests, SKILL.md frontmatter, script syntax
 ```
+
+README images (logo, demo GIF, screenshots) live in the screenshots folder and are generated from real output on sample data.
 
 ## Commands
 
@@ -33,6 +35,8 @@ claude plugin validate --strict . # manifests and skills, needs Claude Code
 5. **`name` in `SKILL.md` frontmatter must equal the folder name**, and the description must say when to use the skill.
 6. **Tax rules carry their source.** If you change a rate, threshold or holding period, cite the source in the pull request and update the table in the README and in `artha-tax/SKILL.md`.
 7. **Public endpoints are unofficial.** Handle failures explicitly, keep caches short, and send the self-identifying User-Agent on every request. The only exception is the opt-in NSE filings call in `artha-pulse` (`--nse`): NSE refuses self-identifying clients, so it stays off by default, and `tests/static_check.py` fails if a browser-style User-Agent appears anywhere else.
+
+8. **Disclose every host.** A new data source or a new kind of request must be added to the Data Sources table in the README and to `PRIVACY.md` in the same pull request, with what is sent to it.
 
 ## Adding or changing a skill
 

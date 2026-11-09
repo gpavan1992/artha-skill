@@ -1,10 +1,10 @@
-<p align="center">
-  <img src="screenshots/logo.png" alt="Artha" width="560">
-</p>
+<div align="center">
 
-<p align="center">
-  <img src="screenshots/artha-demo.gif" alt="Artha terminal walkthrough: market calendar, company financials, capital-gains estimate, fund overlap" width="820">
-</p>
+![Artha](screenshots/logo.png)
+
+![Artha terminal walkthrough: market calendar, company financials, capital-gains estimate, fund overlap](screenshots/artha-demo.gif)
+
+</div>
 
 <h3 align="center">Open-source Claude skills for Indian investors</h3>
 
@@ -105,6 +105,7 @@ Yahoo, Google and NSE endpoints are public but unofficial. They can change or ra
 - **NSE filings are opt-in.** NSE refuses clients that identify themselves, so `--nse` has to send a browser-style User-Agent and a cookie handshake to get an answer. It is off by default, Claude asks before using it, and whether to use it is your decision: check NSE's terms first. Everything else in Artha works without it.
 - **Low volume.** Requests run one at a time with a short pause between uncached fetches, and results are cached on disk (minutes to a day) so repeat questions do not hit the source again.
 - **No logins, no workarounds.** Artha never uses credentials, solves CAPTCHAs or touches an account. When a source blocks or fails, it says so instead of returning a stale number.
+- **Full detail** is in [PRIVACY.md](PRIVACY.md).
 - **Personal analysis.** Artha is built for analysing your own portfolio. It does not host, resell or redistribute any provider's data, and each provider's terms apply to how you use it.
 
 ---
@@ -290,6 +291,8 @@ Artha ships with invented sample files. Copy one, replace the values with yours,
 | Data-source guarantees | ○ Public, unofficial endpoints; can change without notice |
 | NSE official filings | ○ Opt-in (`--nse`); NSE only serves browser-style requests |
 | Tax outputs accepted for filing | ○ Estimates only; confirm with a chartered accountant |
+
+**Privacy and security:** [PRIVACY.md](PRIVACY.md) lists exactly what stays on your machine and what each source receives. The skills that handle your personal data (`artha-tax`, `artha-xray`, `artha-ledger`) make no network requests at all. Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 
 **On regulation:** Artha is not a SEBI-registered investment adviser or research analyst, and nothing it produces is investment advice.
 
