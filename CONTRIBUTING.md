@@ -10,9 +10,9 @@ Thanks for helping. The most valuable contribution is a **data trap**: a number 
 
 ## Set up
 
+Fork the repository on GitHub and clone your fork. Then, from its folder:
+
 ```bash
-git clone https://github.com/gpavan1992/artha-skill
-cd artha-skill
 python3 tests/static_check.py
 bash tests/smoke.sh        # needs network
 ```
