@@ -5,7 +5,7 @@ import argparse, datetime as dt, email.utils, html, json, os, re, sys, time, url
 from http.cookiejar import CookieJar
 from urllib.parse import quote
 
-UA = "Mozilla/5.0 (compatible; artha-skill/0.1.2; +https://github.com/gpavan1992/artha-skill)"
+UA = "Mozilla/5.0 (compatible; artha-skill/0.1.3; +https://github.com/gpavan1992/artha-skill)"
 NSE_UA = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36"   # only for the opt-in --nse call: NSE refuses self-identifying clients
 NSE = "https://www.nseindia.com/api/corporate-announcements?index=equities&symbol={s}"
 GN = "https://news.google.com/rss/search?q={q}+when:{d}d&hl=en-IN&gl=IN&ceid=IN:en"

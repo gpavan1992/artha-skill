@@ -13,7 +13,7 @@ AMFI_URL = "https://portal.amfiindia.com/spages/NAVAll.txt"
 MFAPI_URL = "https://api.mfapi.in/mf/{code}"
 YAHOO_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{sym}?range={rng}&interval=1d"
 CACHE = os.environ.get("MFNAV_CACHE", os.path.join(os.getcwd(), ".mfnav-cache"))
-UA = {"User-Agent": "Mozilla/5.0 (compatible; artha-skill/0.1.2; +https://github.com/gpavan1992/artha-skill)"}
+UA = {"User-Agent": "Mozilla/5.0 (compatible; artha-skill/0.1.3; +https://github.com/gpavan1992/artha-skill)"}
 STALE_DAYS = 7
 BENCHMARKS = {"nifty50": "^NSEI", "nifty500": "^CRSLDX", "banknifty": "^NSEBANK"}
 
