@@ -2,10 +2,13 @@
   "name": "artha-skill",
   "displayName": "Artha",
   "version": "0.1.3",
-  "description": "Eight skills for Indian investors: real mutual fund NAV history, NSE/BSE prices and calendar, company financials, news and filings, a rules-based screener, fund overlap, capital-gains estimates and spend parsing. Not investment advice.",
+  "description": "Eight skills for Indian investors: real mutual fund NAV history, NSE/BSE prices and calendar, company financials, news and NSE filings on request, a rules-based screener, fund overlap, capital-gains estimates and spend parsing. Not investment advice.",
   "author": { "name": "Pavan Galiveeti", "url": "https://github.com/gpavan1992" },
   "homepage": "https://github.com/gpavan1992/artha-skill",
   "repository": "https://github.com/gpavan1992/artha-skill",
+  "privacyPolicyUrl": "https://github.com/gpavan1992/artha-skill/blob/main/PRIVACY.md",
+  "supportUrl": "https://github.com/gpavan1992/artha-skill/issues",
+  "documentationUrl": "https://github.com/gpavan1992/artha-skill#readme",
   "license": "MIT",
   "keywords": ["india", "mutual-funds", "nse", "bse", "portfolio", "capital-gains", "screener", "amfi"]
 }
