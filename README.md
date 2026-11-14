@@ -136,6 +136,19 @@ Artha does not compete on a polished app. It competes on being right and on show
 
 ---
 
+## Two editions
+
+This branch (`main`) is the full edition: eight skills backed by tested Python scripts, caches and CI. Install it from GitHub:
+
+```
+claude plugin marketplace add gpavan1992/artha-skill
+claude plugin install artha-skill@artha
+```
+
+The [`directory` branch](https://github.com/gpavan1992/artha-skill/tree/directory) holds a second, instruction-only edition of the same eight skills, with no scripts, built for the Claude plugin directory, which accepts only text, JSON and images from unverified publishers. In it, Claude fetches the public data and does the arithmetic itself, so results are less repeatable, it screens about 15 stocks at a time, and it does not read NSE filings. That branch is a separate history and is never merged into `main`.
+
+---
+
 ## Is this for you?
 
 **Good fit if you:**
@@ -318,7 +331,7 @@ Artha ships with invented sample files. Copy one, replace the values with yours,
 - [ ] 2027 NSE holiday list, checked against NSE's circular (NSE published the 2026 list in late December 2025)
 - [ ] Price and rule alerts between runs
 - [ ] SIP-aware returns (XIRR) alongside the weekly portfolio series
-- [ ] Claude plugin directory listing
+- [ ] Claude plugin directory listing (instruction-only edition on the `directory` branch, in progress)
 
 **v1.0: Future**
 
