@@ -1,5 +1,3 @@
-![Artha](screenshots/logo.png)
-
 # Artha: Claude skills for Indian investors
 
 Artha is a set of eight skills that help Claude answer questions about Indian mutual funds, NSE and BSE stocks, company financials, news, fund overlap, capital-gains tax and card spending. Each skill is a plain-text instruction file: it tells Claude which free public sources to read, how to do the arithmetic, and which silent data traps to avoid. Nothing is installed or run from this plugin.
