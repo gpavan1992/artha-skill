@@ -1,0 +1,10 @@
+{"name": "Growing, profitable, not priced for perfection",
+ "rules": [
+  {"field": "kind", "op": "==", "value": "company", "label": "non-financial company"},
+  {"field": "revenue_growth_yoy_pct", "op": ">=", "value": 15, "label": "revenue growth ≥ 15%"},
+  {"field": "profit_growth_yoy_pct", "op": ">=", "value": 15, "label": "profit growth ≥ 15%"},
+  {"field": "one_off_latest", "op": "==", "value": false, "label": "no one-off profit in latest year"},
+  {"field": "roe_pct", "op": ">=", "value": 12, "label": "ROE ≥ 12%"},
+  {"field": "debt_to_equity", "op": "<=", "value": 1, "label": "debt/equity ≤ 1"},
+  {"field": "pe", "op": "<=", "value": 35, "label": "P/E ≤ 35"}
+ ]}

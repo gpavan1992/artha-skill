@@ -1,0 +1,300 @@
+[
+ {
+  "name": "Sample Focused Fund",
+  "value": 250000,
+  "holdings": [
+   {
+    "name": "Amber Enterprises India Ltd Ordinary Shares",
+    "perc": 1.3,
+    "sector": "Consumer Cyclical"
+   },
+   {
+    "name": "Adani Green Energy Ltd",
+    "perc": 2.4,
+    "sector": "Utilities"
+   },
+   {
+    "name": "Cipla Ltd",
+    "perc": 2.4,
+    "sector": "Healthcare"
+   },
+   {
+    "name": "ICICI Bank Ltd",
+    "perc": 9.2,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "SBI Life Insurance Co Ltd",
+    "perc": 3.0,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "Bosch Ltd",
+    "perc": 2.5,
+    "sector": "Consumer Cyclical"
+   },
+   {
+    "name": "Metropolis Healthcare Ltd",
+    "perc": 1.4,
+    "sector": "Healthcare"
+   },
+   {
+    "name": "FSN E-Commerce Ventures Ltd",
+    "perc": 2.2,
+    "sector": "Consumer Cyclical"
+   },
+   {
+    "name": "Axis Bank Ltd",
+    "perc": 6.2,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "HDFC Bank Ltd",
+    "perc": 7.8,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "Eicher Motors Ltd",
+    "perc": 3.2,
+    "sector": "Consumer Cyclical"
+   },
+   {
+    "name": "Eternal Ltd",
+    "perc": 4.9,
+    "sector": "Consumer Cyclical"
+   },
+   {
+    "name": "Restaurant Brands Asia Ltd Ordinary Shares",
+    "perc": 0.8,
+    "sector": "Consumer Cyclical"
+   },
+   {
+    "name": "JSW Infrastructure Ltd",
+    "perc": 1.9,
+    "sector": "Industrials"
+   },
+   {
+    "name": "Chalet Hotels Ltd",
+    "perc": 1.8,
+    "sector": "Consumer Cyclical"
+   },
+   {
+    "name": "CG Power & Industrial Solutions Ltd",
+    "perc": 1.1,
+    "sector": "Industrials"
+   },
+   {
+    "name": "Havells India Ltd",
+    "perc": 2.3,
+    "sector": "Industrials"
+   },
+   {
+    "name": "Bharti Airtel Ltd",
+    "perc": 3.2,
+    "sector": "Communication Services"
+   },
+   {
+    "name": "Sun Pharmaceuticals Industries Ltd",
+    "perc": 4.1,
+    "sector": "Healthcare"
+   },
+   {
+    "name": "Hyundai Motor India Ltd",
+    "perc": 1.9,
+    "sector": "Consumer Cyclical"
+   }
+  ]
+ },
+ {
+  "name": "Sample Contra Fund",
+  "value": 150000,
+  "holdings": [
+   {
+    "name": "Viyash Scientific Ltd",
+    "perc": 0.9,
+    "sector": "Healthcare"
+   },
+   {
+    "name": "ICICI Bank Ltd",
+    "perc": 5.9,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "Indus Towers Ltd Ordinary Shares",
+    "perc": 1.7,
+    "sector": "Communication Services"
+   },
+   {
+    "name": "Godrej Consumer Products Ltd",
+    "perc": 0.9,
+    "sector": "Consumer Defensive"
+   },
+   {
+    "name": "IndusInd Bank Ltd",
+    "perc": 1.4,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "Metropolis Healthcare Ltd",
+    "perc": 1.1,
+    "sector": "Healthcare"
+   },
+   {
+    "name": "Indian Bank",
+    "perc": 1.6,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "Axis Bank Ltd",
+    "perc": 1.5,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "UNO Minda Ltd",
+    "perc": 1.1,
+    "sector": "Consumer Cyclical"
+   },
+   {
+    "name": "HDFC Bank Ltd",
+    "perc": 5.1,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "V-Guard Industries Ltd",
+    "perc": 1.3,
+    "sector": "Industrials"
+   },
+   {
+    "name": "Park Medi World Ltd",
+    "perc": 1.8,
+    "sector": "Healthcare"
+   },
+   {
+    "name": "Jammu & Kashmir Bank Ltd",
+    "perc": 1.5,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "Molbio Diagnostics Ltd",
+    "perc": 1.3,
+    "sector": "Healthcare"
+   },
+   {
+    "name": "Ipca Laboratories Ltd",
+    "perc": 1.7,
+    "sector": "Healthcare"
+   },
+   {
+    "name": "Jindal Steel Ltd",
+    "perc": 1.4,
+    "sector": "Basic Materials"
+   },
+   {
+    "name": "Bank of Maharashtra",
+    "perc": 1.3,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "DLF Ltd",
+    "perc": 1.0,
+    "sector": "Real Estate"
+   },
+   {
+    "name": "SRF Ltd",
+    "perc": 1.3,
+    "sector": "Industrials"
+   },
+   {
+    "name": "Astra Microwave Products Ltd",
+    "perc": 1.3,
+    "sector": "Technology"
+   }
+  ]
+ },
+ {
+  "name": "Sample Hybrid Fund",
+  "value": 100000,
+  "holdings": [
+   {
+    "name": "Adani Energy Solutions Ltd",
+    "perc": 2.9,
+    "sector": "Utilities"
+   },
+   {
+    "name": "Asian Paints Ltd",
+    "perc": 1.5,
+    "sector": "Basic Materials"
+   },
+   {
+    "name": "ICICI Bank Ltd",
+    "perc": 4.1,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "Adani Power Ltd",
+    "perc": 3.1,
+    "sector": "Utilities"
+   },
+   {
+    "name": "Tata Consultancy Services Ltd",
+    "perc": 1.7,
+    "sector": "Technology"
+   },
+   {
+    "name": "HDFC Bank Ltd",
+    "perc": 2.5,
+    "sector": "Financial Services"
+   },
+   {
+    "name": "Max Healthcare Institute Ltd Ordinary Shares",
+    "perc": 0.8,
+    "sector": "Healthcare"
+   },
+   {
+    "name": "Meesho Ltd",
+    "perc": 0.9,
+    "sector": "Consumer Cyclical"
+   },
+   {
+    "name": "Astral Ltd",
+    "perc": 0.8,
+    "sector": "Industrials"
+   },
+   {
+    "name": "JSW Energy Ltd",
+    "perc": 1.4,
+    "sector": "Utilities"
+   },
+   {
+    "name": "Jindal Steel Ltd",
+    "perc": 0.9,
+    "sector": "Basic Materials"
+   },
+   {
+    "name": "Avenue Supermarts Ltd",
+    "perc": 2.4,
+    "sector": "Consumer Defensive"
+   },
+   {
+    "name": "DLF Ltd",
+    "perc": 1.0,
+    "sector": "Real Estate"
+   },
+   {
+    "name": "Havells India Ltd",
+    "perc": 0.8,
+    "sector": "Industrials"
+   },
+   {
+    "name": "Coforge Ltd",
+    "perc": 1.8,
+    "sector": "Technology"
+   },
+   {
+    "name": "Adani Enterprises Ltd",
+    "perc": 2.5,
+    "sector": "Energy"
+   }
+  ]
+ }
+]

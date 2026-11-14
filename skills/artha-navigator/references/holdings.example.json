@@ -1,0 +1,18 @@
+{
+ "as_of": "2026-10-30",
+ "funds": [
+  {
+   "name": "UTI Nifty 50 Index",
+   "value": 150000
+  },
+  {
+   "name": "Parag Parikh Flexi Cap",
+   "isin": "INF879O01027",
+   "value": 90000
+  },
+  {
+   "code": 118778,
+   "value": 60000
+  }
+ ]
+}
