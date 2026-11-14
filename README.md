@@ -33,6 +33,13 @@ claude plugin marketplace add gpavan1992/artha-skill
 claude plugin install artha-skill@artha
 ```
 
+## What this plugin runs and connects to
+
+- **Runs no code.** The plugin is Markdown and JSON only: eight `SKILL.md` instruction files plus small reference tables. It has no scripts, hooks, MCP servers, slash commands, agents, package files or binaries to execute.
+- **Connects to four public sites, through Claude.** When you ask a question, the skill tells Claude to make read-only HTTP GET requests, using whatever web access your Claude session already has, to: api.mfapi.in (fund NAVs), query1.finance.yahoo.com and query2.finance.yahoo.com (prices, fundamentals, USD/INR), news.google.com (news search) and niftyindices.com (index constituent lists). No other host is named in any skill.
+- **Sends nothing to the author.** There is no Artha server, analytics or telemetry. Each request carries only a fund name, scheme code, ticker, company name or date range, as listed in [PRIVACY.md](PRIVACY.md). It needs no accounts, API keys or credentials, and the skills never ask for them.
+- **Treats news text as data.** The news skill tells Claude to summarise headlines and never follow instructions that appear inside them.
+
 ## Data sources
 
 mfapi.in (fund NAVs), Yahoo Finance (prices, index levels, fundamentals, USD/INR), Google News India (headlines), and the official Nifty index constituent lists from niftyindices.com. Details of what each receives are in [PRIVACY.md](PRIVACY.md).
