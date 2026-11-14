@@ -21,7 +21,7 @@ Artha is a set of eight skills that help Claude answer questions about Indian mu
 
 - A merged fund keeps its old scheme code and its history simply stops. The skill rejects any code whose latest NAV is older than a week.
 - "Cumulative" and "Accumulation" mean Growth. Without that, a search for a Nifty 50 index fund returns the Nifty Next 50 fund.
-- Infosys reports in US dollars while its price is in rupees. Dividing one by the other gives a P/E near 1,450; converted, it is about 15.
+- Infosys reports in US dollars while its price is in rupees. Dividing one by the other gives a P/E near 1,400; converted, it is about 15.
 - Basic EPS is not restated after bonus issues, so a profitable bank can look like its earnings halved. The skills use diluted EPS.
 - A profit larger than operating income usually means a one-off gain, not growth.
 - NSE closes on days like Diwali-Balipratipada, and equity gains are taxed differently from gold-fund gains. The calendar and tax rules are written into the skills.

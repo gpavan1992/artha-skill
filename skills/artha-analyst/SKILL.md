@@ -27,7 +27,7 @@ Each series in `timeseries.result[]` lists `asOfDate`, `currencyCode` and `repor
 6. **Units.** ₹ crore = rupees ÷ 10,000,000. Fiscal years end in March: `2026-03-31` is FY2025-26.
 7. Revenue and profit growth = latest ÷ prior year − 1. Net margin = net income ÷ revenue. ROE = net income ÷ latest equity (say if you use year-end rather than average equity). Debt-to-equity = total debt ÷ equity. Quarterly YoY compares to the same quarter a year earlier.
 
-Check: on 14 Nov 2026 INFY.NS traded at ₹1,141.5, USD/INR 94.24, and the last four quarterly diluted EPS summed to $0.81, so TTM EPS is about ₹76.3 and P/E about 15, not about 1,450.
+Check: on 14 Nov 2026 INFY.NS traded at ₹1,141.5, USD/INR 94.24, and the last four quarterly diluted EPS summed to $0.81, so TTM EPS is about ₹76.3 and P/E about 15, not about 1,400.
 
 ## How to report
 
