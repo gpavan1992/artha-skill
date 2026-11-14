@@ -1,6 +1,6 @@
 ---
 name: artha-ledger
-description: Turns Indian bank and credit-card transaction alert emails or SMS text (HDFC, ICICI, SBI Card, Axis, Kotak, Amex and others) into a categorised spending summary: categories, top merchants, per-card totals, refunds. It never outputs card numbers, UPI IDs or the names of people paid. Use when the user asks where their money went, wants monthly spend analysis, "how much did I spend on Swiggy or fuel", or a spend section for a budget, even if they just say "analyse my card spends".
+description: "Turns Indian bank and credit-card transaction alert emails or SMS text (HDFC, ICICI, SBI Card, Axis, Kotak, Amex and others) into a categorised spending summary: categories, top merchants, per-card totals, refunds. It never outputs card numbers, UPI IDs or the names of people paid. Use when the user asks where their money went, wants monthly spend analysis, \"how much did I spend on Swiggy or fuel\", or a spend section for a budget, even if they just say \"analyse my card spends\"."
 ---
 
 # Artha Ledger: spend from transaction alerts

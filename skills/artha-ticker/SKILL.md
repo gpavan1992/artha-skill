@@ -1,6 +1,6 @@
 ---
 name: artha-ticker
-description: NSE/BSE stock, ETF and index prices, 52-week range, weekly moves and the NSE trading calendar (IST hours, holidays, Muhurat session) from free public data. Use when the user asks about an Indian stock's price, how their Indian stocks did this week or against Nifty, "is the market open today", or NSE holidays, even if they only name a company. For mutual fund NAVs use artha-navigator.
+description: "NSE/BSE stock, ETF and index prices, 52-week range, weekly moves and the NSE trading calendar (IST hours, holidays, Muhurat session) from free public data. Use when the user asks about an Indian stock's price, how their Indian stocks did this week or against Nifty, \"is the market open today\", or NSE holidays, even if they only name a company. For mutual fund NAVs use artha-navigator."
 ---
 
 # Artha Ticker: Indian prices and the NSE calendar

@@ -1,6 +1,6 @@
 ---
 name: artha-navigator
-description: Real NAV history and returns for Indian mutual funds from free public data (mfapi.in, Yahoo Finance for benchmarks). Use when the user asks how an Indian mutual fund or their MF portfolio performed, weekly or monthly returns, 1Y/3Y/5Y CAGR, "compare my fund with Nifty 500", "find the scheme code", or "NAV history". Also use to resolve a fund name to the correct, current scheme code before any other MF analysis.
+description: "Real NAV history and returns for Indian mutual funds from free public data (mfapi.in, Yahoo Finance for benchmarks). Use when the user asks how an Indian mutual fund or their MF portfolio performed, weekly or monthly returns, 1Y/3Y/5Y CAGR, \"compare my fund with Nifty 500\", \"find the scheme code\", or \"NAV history\". Also use to resolve a fund name to the correct, current scheme code before any other MF analysis."
 ---
 
 # Artha Navigator: mutual fund NAVs and returns

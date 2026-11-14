@@ -1,6 +1,6 @@
 ---
 name: artha-xray
-description: Finds stock and sector overlap across an Indian mutual fund portfolio: which funds hold the same stocks, how many rupees you really have in each stock and sector across all funds, and which fund pairs largely duplicate each other. Use when the user asks about fund overlap, "do my funds hold the same stocks", diversification, concentration in banks or a sector, how much HDFC Bank they really own, "am I over-diversified" or "too many funds".
+description: "Finds stock and sector overlap across an Indian mutual fund portfolio: which funds hold the same stocks, how many rupees you really have in each stock and sector across all funds, and which fund pairs largely duplicate each other. Use when the user asks about fund overlap, \"do my funds hold the same stocks\", diversification, concentration in banks or a sector, how much HDFC Bank they really own, \"am I over-diversified\" or \"too many funds\"."
 ---
 
 # Artha Xray: look-through overlap

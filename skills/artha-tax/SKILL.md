@@ -1,6 +1,6 @@
 ---
 name: artha-tax
-description: Indian capital-gains estimates for mutual funds, shares, gold/silver funds, debt funds and foreign shares or RSUs: short vs long term, tax if sold, the Rs 1.25 lakh LTCG exemption, ELSS lock-in dates and "what would selling X cost me". Use when an Indian resident asks about tax on redeeming or switching a fund, selling shares or RSUs, tax-loss or tax-gain harvesting, when units become long-term, or when ELSS units unlock.
+description: "Indian capital-gains estimates for mutual funds, shares, gold/silver funds, debt funds and foreign shares or RSUs: short vs long term, tax if sold, the Rs 1.25 lakh LTCG exemption, ELSS lock-in dates and \"what would selling X cost me\". Use when an Indian resident asks about tax on redeeming or switching a fund, selling shares or RSUs, tax-loss or tax-gain harvesting, when units become long-term, or when ELSS units unlock."
 ---
 
 # Artha Tax: capital-gains estimates (FY 2026-27)

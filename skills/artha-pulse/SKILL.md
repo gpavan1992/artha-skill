@@ -1,6 +1,6 @@
 ---
 name: artha-pulse
-description: What happened to an NSE-listed company: Indian news headlines that actually name the company, ranked by importance (results, dividends, orders, regulatory, management, ratings). Use when the user asks why an Indian stock moved, "any news on Reliance", "what did Infosys announce", results or dividend dates, or wants a "what's new" section for Indian holdings, even if they only name the company.
+description: "What happened to an NSE-listed company: Indian news headlines that actually name the company, ranked by importance (results, dividends, orders, regulatory, management, ratings). Use when the user asks why an Indian stock moved, \"any news on Reliance\", \"what did Infosys announce\", results or dividend dates, or wants a \"what's new\" section for Indian holdings, even if they only name the company."
 ---
 
 # Artha Pulse: company news

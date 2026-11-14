@@ -1,6 +1,6 @@
 ---
 name: artha-analyst
-description: Reported financials for NSE/BSE-listed companies: annual and quarterly revenue, net profit, operating margin, growth, diluted EPS, P/E, ROE, debt-to-equity and free cash flow, with traps (bonus/split EPS, foreign-currency reporting, one-off profits, bank metrics) handled. Use when the user asks how an Indian company is doing financially, "what's Infosys's P/E", "is Reliance profitable", earnings growth, or needs numbers behind a stock idea.
+description: "Reported financials for NSE/BSE-listed companies: annual and quarterly revenue, net profit, operating margin, growth, diluted EPS, P/E, ROE, debt-to-equity and free cash flow, with traps (bonus/split EPS, foreign-currency reporting, one-off profits, bank metrics) handled. Use when the user asks how an Indian company is doing financially, \"what's Infosys's P/E\", \"is Reliance profitable\", earnings growth, or needs numbers behind a stock idea."
 ---
 
 # Artha Analyst: reported fundamentals

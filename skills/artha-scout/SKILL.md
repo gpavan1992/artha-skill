@@ -1,6 +1,6 @@
 ---
 name: artha-scout
-description: Screens NSE stocks against the user's own rules on reported fundamentals (growth, profit, P/E, ROE, debt, one-off profits) and returns passes, near-misses (failing one rule, with the gap) and failures with reasons. Use when the user asks to "screen", "filter", "find stocks that...", "which Nifty stocks have...", or to check whether their holdings still meet their criteria.
+description: "Screens NSE stocks against the user's own rules on reported fundamentals (growth, profit, P/E, ROE, debt, one-off profits) and returns passes, near-misses (failing one rule, with the gap) and failures with reasons. Use when the user asks to \"screen\", \"filter\", \"find stocks that...\", \"which Nifty stocks have...\", or to check whether their holdings still meet their criteria."
 ---
 
 # Artha Scout: rules-based screener
