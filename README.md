@@ -25,7 +25,11 @@
   &nbsp;&nbsp;&nbsp;
   <a href="#the-eight-skills"><b>Skills</b></a>
   &nbsp;&nbsp;&nbsp;
+  <a href="#see-it-work"><b>See it work</b></a>
+  &nbsp;&nbsp;&nbsp;
   <a href="#how-a-number-gets-checked"><b>How it works</b></a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="#use-it-with-your-brokers-connector"><b>With your broker</b></a>
   &nbsp;&nbsp;&nbsp;
   <a href="#data-sources"><b>Data sources</b></a>
   &nbsp;&nbsp;&nbsp;
@@ -62,6 +66,33 @@ A Claude Code plugin with eight skills. Each skill is a `SKILL.md` that tells Cl
 </p>
 
 No account, no login, no API key. Everything runs on your machine, and the skills that read your own holdings, tax lots or bank alerts make no network requests at all.
+
+## See it work
+
+Four everyday questions, and the Artha script that answers each one. In Claude you only ask the question: Claude picks the skill, runs it and explains the result.
+
+<p align="center">
+  <img src="assets/demo/market-and-pe.gif" alt="You ask: is the market open, and what is Infosys's P/E? artha-ticker shows NSE is closed for the weekend and lists the next holidays; artha-analyst shows Infosys's financials and a P/E of 14.6, with a warning that US-dollar figures were converted to rupees at 92.67." width="100%">
+</p>
+
+<p align="center">
+  <img src="assets/demo/funds-vs-nifty500.gif" alt="You ask: how did my funds do against the Nifty 500? artha-navigator shows a sample portfolio's value for each of 8 weeks from real NAVs: up 7.03% against the Nifty 500's 6.57%, ahead in 5 of 8 weeks." width="100%">
+</p>
+
+<details>
+<summary><b>Two more: fund overlap, and tax before selling</b></summary>
+
+<p align="center">
+  <img src="assets/demo/fund-overlap.gif" alt="You ask: do my funds hold the same stocks? artha-xray shows overlapping fund pairs, the biggest look-through stocks and sector shares across three sample funds, and warns where disclosed holdings understate overlap." width="100%">
+</p>
+
+<p align="center">
+  <img src="assets/demo/tax-before-selling.gif" alt="You ask: what would selling cost me in tax? artha-tax lists sample lots with short or long term, gains, ELSS lock-in dates and when each lot turns long-term, then estimates the tax if all were sold today." width="100%">
+</p>
+
+</details>
+
+*Real runs of Artha's scripts, recorded on 21 Nov 2026. Prices, NAVs and financials are live public data; the fund holdings and tax lots are the bundled invented samples.*
 
 ## Quick start
 
@@ -100,6 +131,8 @@ Start `claude` and ask in plain language:
 ### 3. Bring your own data (optional)
 
 Artha ships with invented sample files. Copy the one you need, replace the values with yours, and keep your copy out of git. See [Customization](#customization).
+
+If your holdings are with INDmoney, Zerodha or Groww, Claude can fill these files from your broker's connector instead. See [Use it with your broker's connector](#use-it-with-your-brokers-connector).
 
 <details>
 <summary>Other ways to run it: one session only, or without Claude</summary>
@@ -169,6 +202,41 @@ python3 skills/artha-tax/scripts/tax.py gains skills/artha-tax/lots.example.json
 - **Traps live where they are met.** Stale scheme codes, "Cumulative" = Growth, reporting currency, bonus-adjusted EPS and holiday gaps are written into the skill that handles them, so they are caught every time.
 - **Observations, never advice.** Artha states what the data shows. It does not say buy, sell or switch.
 - **No credentials, no write access.** No broker connection, no login, nothing to configure beyond optional cache folders.
+
+</details>
+
+## Use it with your broker's connector
+
+Broker connectors answer **"what do I own?"**. Artha answers **"are these numbers right, and what do they mean?"**. Connect both in Claude and you can ask one question that uses both.
+
+<p align="center">
+  <img src="assets/readme/connectors.svg" alt="Your broker's MCP connector, such as INDmoney, Zerodha Kite or Groww, tells Claude what you own. Claude saves it to a local file, runs the Artha skill and explains every warning. Artha checks the numbers: navigator for weekly value against the Nifty 500, xray for overlap across funds, ticker and analyst for moves, P/E and financials, pulse for why a stock moved, and tax for the cost of selling, which needs purchase dates for each lot." width="100%">
+</p>
+
+| Connector (official) | Server URL | What it gives Claude | Can it place orders? |
+|---|---|---|---|
+| [**INDmoney**](https://www.indmoney.com/mcp) | `https://mcp.indmoney.com/mcp` | Net worth, mutual funds, Indian and US stocks, SIPs | No. INDmoney says it is read-only |
+| [**Zerodha Kite**](https://github.com/zerodha/kite-mcp-server) | `https://mcp.kite.trade/mcp` | Stock and mutual fund holdings, positions, quotes, price history | Zerodha says its hosted server leaves out "potentially destructive trading operations" |
+| [**Groww**](https://groww.in/updates/groww-mcp) | `https://mcp.groww.in/mcp` | Stock and F&O holdings and positions (mutual funds were not covered at launch) | Yes. Keep its order tools set to ask before running |
+
+Add a connector in Claude as a custom connector with the server URL above, or follow each provider's setup page. Then try:
+
+| You ask | Connector does | Artha does |
+|---|---|---|
+| "Get my mutual funds from INDmoney and show how they did against the Nifty 500 over 12 weeks." | Lists your funds and current values | `artha-navigator` builds the weekly series from real NAVs |
+| "Do my INDmoney funds overlap? Which stocks do I really own through them?" | Lists your funds and values | `artha-xray` adds up look-through stock and sector exposure |
+| "Check my Zerodha holdings: how did they do this week vs the Nifty 500, and what are their P/Es?" | Lists your stocks and quantities | `artha-ticker` weekly moves, `artha-analyst` P/E with currency and bonus traps flagged |
+| "Which of my Groww stocks are furthest below their 52-week high, and is there news on them?" | Lists your stocks | `artha-ticker` quotes each one against its 52-week range, `artha-pulse` ranks the news that names the company |
+| "If I sell my oldest lots of fund X, what's the tax?" | Usually gives units and average cost only | `artha-tax` needs each purchase date. Export your broker's tradebook or capital-gains statement and ask Claude to build the lots from it |
+
+<details>
+<summary><b>How the hand-off works, and what to watch</b></summary>
+
+- **Artha never talks to your broker.** The connector and Artha don't call each other. Claude reads your holdings through the connector, writes them to a local file in the shape Artha expects (see [Bring your own data](#bring-your-own-data)), and runs the skill on that file.
+- **Keep that file out of git.** Ask Claude to save it outside the repository, or in a folder your `.gitignore` covers.
+- **Connector data goes to Claude** under the connector provider's terms and Anthropic's. Artha's own scripts send nothing about your holdings anywhere.
+- **Orders stay with you.** Artha has no order capability. If your connector can place orders, set those tools to ask for approval every time.
+- **These are patterns, not certified integrations.** Connector tools and their output can change without notice. If Claude's file doesn't match the sample format, ask it to compare against the matching `*.example.json` and fix the file.
 
 </details>
 
@@ -320,7 +388,8 @@ artha-skill/
 ├── tests/
 │   ├── static_check.py        # offline checks, run in CI
 │   └── smoke.sh               # live checks against public data
-├── assets/readme/             # images in this README
+├── assets/readme/             # diagrams in this README
+├── assets/demo/               # GIFs of real script runs
 ├── screenshots/               # real terminal output on sample data
 ├── AGENTS.md                  # rules for AI coding agents working here
 ├── CONTRIBUTING.md
