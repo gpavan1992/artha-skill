@@ -1,213 +1,116 @@
-<div align="center">
-
-![Artha](screenshots/logo.png)
-
-![Artha terminal walkthrough: market calendar, company financials, capital-gains estimate, fund overlap](screenshots/artha-demo.gif)
-
-</div>
-
-<h3 align="center">Open-source Claude skills for Indian investors</h3>
-
-<p align="center"><b>Fund NAVs, NSE/BSE prices, company financials, news, screens, fund overlap and tax estimates, with the silent data traps already handled.</b></p>
-
 <p align="center">
-  <a href="LICENSE"><img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
-  <a href="https://code.claude.com/docs/en/overview"><img alt="Claude Code plugin" src="https://img.shields.io/badge/Claude%20Code-Plugin-d97757"></a>
-  <img alt="Python 3.9+, standard library only" src="https://img.shields.io/badge/Python-3.9%2B%20stdlib%20only-3776AB">
-  <img alt="No API keys" src="https://img.shields.io/badge/API%20keys-none-brightgreen">
-  <a href="https://github.com/gpavan1992/artha-skill/actions/workflows/ci.yml"><img alt="CI" src="https://github.com/gpavan1992/artha-skill/actions/workflows/ci.yml/badge.svg"></a>
+  <img src="assets/readme/hero.svg" alt="Artha. Checkable numbers for Indian investors, inside Claude. A fund's weekly value line draws across a chart while three data traps are caught: an NSE holiday gap uses the last trading close, a US-dollar EPS is converted to rupees, and a stale scheme code is rejected." width="100%">
 </p>
 
 <p align="center">
-  <a href="#quick-start"><b>Install</b></a> ·
-  <a href="https://github.com/gpavan1992/artha-skill/issues"><b>Report a Bug</b></a>
+  <a href="https://github.com/gpavan1992/artha-skill/actions/workflows/ci.yml"><img src="https://github.com/gpavan1992/artha-skill/actions/workflows/ci.yml/badge.svg" alt="CI" height="20"></a>
+  &nbsp;
+  <a href="https://code.claude.com/docs/en/overview"><img src="https://img.shields.io/badge/Claude_Code-plugin-E8A33D?style=flat" alt="Claude Code plugin" height="20"></a>
+  &nbsp;
+  <img src="https://img.shields.io/badge/Python-3.9%2B_stdlib_only-E8A33D?style=flat" alt="Python 3.9+, standard library only" height="20">
+  &nbsp;
+  <img src="https://img.shields.io/badge/API_keys-none-E8A33D?style=flat" alt="No API keys" height="20">
+  &nbsp;
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-E8A33D?style=flat" alt="MIT license" height="20"></a>
 </p>
 
 <p align="center">
-  <a href="#screenshots">Screenshots</a> · <a href="#quick-start">Quick Start</a> · <a href="#architecture">Architecture</a> · <a href="#roadmap">Roadmap</a>
+  Open-source Claude skills for Indian investors.<br>
+  Mutual fund NAVs, NSE/BSE prices, company financials, news, screens, fund overlap,<br>
+  capital-gains estimates and spend summaries, with the silent data traps already handled.
 </p>
 
----
+<p align="center">
+  <a href="#quick-start"><b>Quick start</b></a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="#the-eight-skills"><b>Skills</b></a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="#how-a-number-gets-checked"><b>How it works</b></a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="#data-sources"><b>Data sources</b></a>
+  &nbsp;&nbsp;&nbsp;
+  <a href="#customization"><b>Customization</b></a>
+</p>
 
-## The Problem
+> [!NOTE]
+> Artha is an independent open-source project. It is not affiliated with, endorsed by or maintained by Anthropic, AMFI, NSE, BSE, Yahoo or any fund house. Claude and Claude Code are named only to describe the toolchain it runs on.
+>
+> Artha is **not investment advice** and is not a SEBI-registered investment adviser or research analyst. It reports what public data shows and never says buy, sell or switch.
 
-Indian portfolio data fails quietly. Every row below happened while these skills were being built and tested against real data, and every one produced a plausible-looking number.
+## Does it actually work?
 
-| What went wrong | What a naive lookup showed | What Artha does |
-|---|---|---|
-| A merged fund keeps its old scheme code, and its history stops years ago | A stale series that looks like a live fund | Resolves only active AMFI schemes; flags any history older than 7 days |
-| One fund house calls the Growth option **Cumulative** | A search for a Nifty 50 index fund matched the Nifty Next 50 fund | Alias-aware resolver that ranks the true match first and shows a confidence score on every result |
-| Infosys reports in **US dollars** while its share price is in ₹ | A P/E of about 1,450 | Converts at today's rate, says so, and drops the figure if the rate is unavailable |
-| A 1:1 bonus issue halves raw EPS | "Profit halved" | Compares diluted, restated EPS only; detects splits and uses adjusted closes |
-| NSE was shut on Friday 2 Oct 2026 | A missing Friday close | Uses the last trading close and says which day it is |
+Indian portfolio data fails quietly. While building Artha and testing it against real data, every one of these came up, and every one produced a number that looked plausible:
 
-A wrong number that looks right is worse than an error. Artha's rule: **warn, convert or refuse. Never guess.**
+<p align="center">
+  <img src="assets/readme/traps.svg" alt="Five numbers that looked right. Infosys P/E: a naive lookup shows about 1,450; Artha converts US-dollar earnings to rupees and shows about 15.4. A search for a Nifty 50 index fund matched a Nifty Next 50 fund; Artha reads Cumulative as Growth. A merged fund's years-old history is rejected. After a 1:1 bonus, profit looks halved; Artha uses diluted, restated EPS. The close on Friday 2 October 2026 is missing; Artha uses Thursday's close and names the NSE holiday." width="100%">
+</p>
 
----
+A wrong number that looks right is worse than an error. So each trap is written into the skill that meets it, and the rule is the same everywhere: **warn, convert or refuse. Never guess.**
 
-## What Artha Does
+Here is a real Claude Code session with Artha installed: one question, two skills, and the currency conversion stated rather than hidden.
 
-Eight skills. Each is a `SKILL.md` that tells Claude when to use it and what to watch for, plus a standard-library Python script that fetches and computes the numbers.
+<p align="center">
+  <img src="screenshots/claude-code-session.png" alt="Claude Code session. Question: is the NSE open on Tuesday, and what was Infosys's P/E? Claude loads artha-ticker and artha-analyst. Answer: NSE is closed on Tuesday 10 Nov 2026 for Diwali-Balipratipada; Infosys's P/E is about 15.4, converted from US dollars at 93.91 rupees." width="100%">
+</p>
 
-### 📈 artha-navigator: real fund NAVs
+## What this is
 
-Resolve any fund to its current AMFI scheme code. Get 1W / 1M / 3M / 6M / 1Y / 3Y / 5Y returns and 1Y max drawdown, or the weekly value of a whole portfolio against the Nifty 50 or Nifty 500. Every week comes from a real NAV; nothing is estimated.
+A Claude Code plugin with eight skills. Each skill is a `SKILL.md` that tells Claude when to use it and which traps to watch for, plus a standard-library Python script that fetches the data and does the arithmetic. You ask in plain language; Claude picks the skill.
 
-### 🕒 artha-ticker: NSE/BSE prices and calendar
+<p align="center">
+  <img src="assets/readme/skills.svg" alt="Eight skills. Your funds: artha-navigator for real NAVs and returns, artha-xray for overlap across funds, artha-tax for capital gains and ELSS lock-ins. Your money: artha-ledger for spend from bank alerts. Stocks: artha-ticker for prices and the NSE calendar, artha-analyst for reported financials and P/E, artha-pulse for news that names the company, artha-scout to screen against your rules." width="100%">
+</p>
 
-Quotes, history, week-over-week moves, split and bonus handling, and the NSE trading calendar in IST, including holidays and Muhurat sessions. Answers "is the market open Tuesday?" and "how did my stocks do this week?"
+No account, no login, no API key. Everything runs on your machine, and the skills that read your own holdings, tax lots or bank alerts make no network requests at all.
 
-### 🧮 artha-analyst: reported financials
+## Quick start
 
-Annual and quarterly revenue, profit and operating margin, growth, diluted EPS, P/E, ROE, debt-to-equity and free cash flow. Flags currency, bonus/split and one-off-profit traps, and handles bank metrics separately.
-
-### 📰 artha-pulse: why did it move?
-
-News headlines that actually name the company, ranked by importance, plus official NSE announcements (results, dividends, orders, management changes, ratings) when you opt in with `--nse`. Tracks what you have already seen so repeat runs show only what is new.
-
-### 🔎 artha-scout: screen against your rules
-
-Screen the Nifty 50/100/200/500, Next 50, Midcap 150, Smallcap 100 or your own list against rules you write in JSON. Returns passes, near-misses (failing exactly one rule, with the gap) and failures with reasons.
-
-### 🔬 artha-xray: what your funds really hold
-
-Look-through stock and sector exposure across all your funds, the rupees you effectively hold in each stock, and which fund pairs largely duplicate each other. Says how much of each fund's portfolio is actually disclosed, so understated overlap is never hidden.
-
-### 🧾 artha-tax: capital-gains estimates
-
-Short vs long term by asset class, the ₹1.25L LTCG exemption, "what would selling X cost me", loss-harvesting candidates and ELSS 3-year lock-in dates, using FY 2026-27 rules. Switching funds is treated as the taxable sale it is.
-
-### 💳 artha-ledger: spend from bank alerts
-
-Turns card and UPI alert emails into a categorised spending summary: categories, top merchants, per-card totals, refunds. Never outputs card numbers, UPI IDs or the names of people paid.
-
----
-
-## Data Sources
-
-Artha reads public data only. No account, no login, no API key.
-
-| Source | Used by | What it provides | Key needed |
-|---|---|---|---|
-| **AMFI** (`NAVAll.txt`) | navigator | Active scheme list, ISINs, daily NAV | No |
-| **mfapi.in** | navigator | Full daily NAV history per scheme | No |
-| **Yahoo Finance** (public endpoints) | ticker, navigator, analyst | Prices, history, splits, index levels, fundamentals, USD/INR | No |
-| **NSE corporate announcements** (opt-in) | pulse | Official company filings, only with `--nse` | No |
-| **Google News** (India RSS) | pulse | Headlines that name the company | No |
-| **NSE index lists** | scout | Constituents of Nifty 50/100/200/500, Midcap 150, Smallcap 100 | No |
-| **Bundled holiday list** | ticker | NSE trading holidays and special sessions (2026), compiled from public tables. 2027 is added when NSE publishes it (late December); until then the calendar says so | n/a |
-
-Yahoo, Google and NSE endpoints are public but unofficial. They can change or rate-limit automated requests. When one does, the skills say so instead of returning a stale number. Confirm any date you plan around, such as a holiday, on [nseindia.com](https://www.nseindia.com).
-
-### Responsible data use
-
-- **Artha identifies itself.** Every request carries the User-Agent `artha-skill/<version> (+repository URL)`. The one exception is the opt-in NSE call below.
-- **NSE filings are opt-in.** NSE refuses clients that identify themselves, so `--nse` has to send a browser-style User-Agent and a cookie handshake to get an answer. It is off by default, Claude asks before using it, and whether to use it is your decision: check NSE's terms first. Everything else in Artha works without it.
-- **Low volume.** Requests run one at a time with a short pause between uncached fetches, and results are cached on disk (minutes to a day) so repeat questions do not hit the source again.
-- **No logins, no workarounds.** Artha never uses credentials, solves CAPTCHAs or touches an account. When a source blocks or fails, it says so instead of returning a stale number.
-- **Full detail** is in [PRIVACY.md](PRIVACY.md).
-- **Personal analysis.** Artha is built for analysing your own portfolio. It does not host, resell or redistribute any provider's data, and each provider's terms apply to how you use it.
-
----
-
-## By the Numbers
+### What you need
 
 | | |
 |---|---|
-| **8** | skills, each with its own `SKILL.md` and script |
-| **6** | live public data sources |
-| **0** | API keys and third-party dependencies (Python standard library only) |
-| **13** | live checks in `tests/smoke.sh` |
+| **[Claude Code](https://code.claude.com/docs/en/overview)** | Or another Claude surface that supports plugins. |
+| **Python 3.9+** | Standard library only. Nothing to `pip install`. |
+| **Internet access** | To the public data sources listed under [Data sources](#data-sources). |
 
----
+<details>
+<summary>Fine print: network hosts, and the instruction-only edition</summary>
 
-## Compared to a typical portfolio-tracker app
+- **Network hosts.** `portal.amfiindia.com`, `api.mfapi.in`, `query1.finance.yahoo.com`, `query2.finance.yahoo.com`, `www.nseindia.com`, `nsearchives.nseindia.com`, `www.niftyindices.com` and `news.google.com`. If your environment restricts outbound domains, allow these.
+- **Two editions.** This branch (`main`) is the full edition, with tested scripts, caches and CI. The [`directory` branch](https://github.com/gpavan1992/artha-skill/tree/directory) holds an instruction-only edition of the same eight skills, with no scripts, built for the Claude plugin directory. There, Claude fetches the data and does the arithmetic itself, so results are less repeatable, it screens about 15 stocks at a time, and it does not read NSE filings. That branch has its own history and is never merged into `main`.
 
-| | **Artha** | Typical tracker app |
-|---|---|---|
-| **Where your holdings live** | In files on your machine; nothing is uploaded by Artha | On the vendor's servers |
-| **Source code** | Fully open, MIT: read every line | Usually closed |
-| **Pricing** | Free | Often free tier plus subscription |
-| **How you ask** | Plain language to Claude: "how did my funds do against the Nifty 500?" | Fixed screens and filters |
-| **Customization** | Edit the screener rules, categories and tax lots, or fork it | Feature requests into a backlog you do not control |
-| **Exit** | Delete the folder | Account closure and data export |
+</details>
 
-Artha does not compete on a polished app. It competes on being right and on showing its work.
-
----
-
-## Two editions
-
-This branch (`main`) is the full edition: eight skills backed by tested Python scripts, caches and CI. Install it from GitHub:
-
-```
-claude plugin marketplace add gpavan1992/artha-skill
-claude plugin install artha-skill@artha
-```
-
-The [`directory` branch](https://github.com/gpavan1992/artha-skill/tree/directory) holds a second, instruction-only edition of the same eight skills, with no scripts, built for the Claude plugin directory, which accepts only text, JSON and images from unverified publishers. In it, Claude fetches the public data and does the arithmetic itself, so results are less repeatable, it screens about 15 stocks at a time, and it does not read NSE filings. That branch is a separate history and is never merged into `main`.
-
----
-
-## Is this for you?
-
-**Good fit if you:**
-
-- Invest in Indian mutual funds and stocks and want checkable numbers behind your own decisions
-- Use Claude Code (or another Claude surface that supports plugins) and are comfortable running a command
-- Want warnings, not silent guesses, when data is stale, converted or approximate
-
-**Not a fit if you:**
-
-- Want buy, sell or "which fund is best" recommendations. Artha reports and flags; it never recommends
-- Want to place orders. It has no broker access and no write access to any account
-- Need a point-and-click dashboard. This is a set of skills, not an app
-- Need figures to file a tax return. Tax output is an estimate; confirm with a chartered accountant
-
----
-
-## Screenshots
-
-| ![Claude Code session](screenshots/claude-code-session.png) | ![artha-navigator](screenshots/navigator.png) |
-|---|---|
-| *Claude Code: the market calendar and a company's P/E in one answer* | *artha-navigator: weekly value vs the Nifty 500, from real NAVs* |
-| ![artha-tax](screenshots/tax.png) | ![artha-xray](screenshots/xray.png) |
-| *artha-tax: lots, ELSS lock-ins and what selling would cost* | *artha-xray: look-through overlap, with disclosure warnings* |
-
-All terminal images are real script output on the bundled **sample data** (invented holdings), generated by running the skills. They are not mock-ups.
-
----
-
-## Quick Start
-
-**Requirements:** Python 3.9+ and an internet connection. No keys, no installs beyond the plugin.
-
-### Option 1: Claude Code (recommended)
+### 1. Install the plugin
 
 ```bash
 claude plugin marketplace add gpavan1992/artha-skill
 claude plugin install artha-skill@artha
-claude
 ```
 
-Then ask in plain language:
+### 2. Ask
+
+Start `claude` and ask in plain language:
 
 - "Is the NSE open on Tuesday, and what is Infosys's P/E?"
 - "How did my funds do against the Nifty 500 over the last 12 weeks?"
 - "What would it cost in tax to sell 200 units of my ELSS fund today?"
 - "Which of my funds hold the same stocks?"
 
-### Option 2: try it for one session
+### 3. Bring your own data (optional)
 
-Clone the repository from [GitHub](https://github.com/gpavan1992/artha-skill) (the green **Code** button), then start Claude Code with the plugin folder:
+Artha ships with invented sample files. Copy the one you need, replace the values with yours, and keep your copy out of git. See [Customization](#customization).
+
+<details>
+<summary>Other ways to run it: one session only, or without Claude</summary>
+
+**For one session**, clone the repository from [GitHub](https://github.com/gpavan1992/artha-skill) (the green **Code** button) and start Claude Code with the plugin folder:
 
 ```bash
 claude --plugin-dir ./artha-skill
 ```
 
-### Option 3: use the scripts directly, no Claude
-
-Every script is plain Python with `--help`.
+**Without Claude**, every script is plain Python with `--help`:
 
 ```bash
 python3 skills/artha-ticker/scripts/prices.py market
@@ -218,9 +121,111 @@ python3 skills/artha-scout/scripts/screen.py --index nifty50 --rules skills/arth
 python3 skills/artha-tax/scripts/tax.py gains skills/artha-tax/lots.example.json --slab 30
 ```
 
-### Bring your own data
+</details>
 
-Artha ships with invented sample files. Copy one, replace the values with yours, and keep your copy out of git.
+## The eight skills
+
+| Skill | What it answers | Try asking |
+|---|---|---|
+| **`artha-navigator`** | Real fund NAVs, 1W to 5Y returns, drawdown, portfolio vs Nifty 50 or 500 | "How did my funds do this week?" |
+| **`artha-ticker`** | NSE/BSE prices, history, splits and bonuses, the NSE calendar in IST | "Is the market open on Tuesday?" |
+| **`artha-analyst`** | Revenue, profit, margins, diluted EPS, P/E, ROE, debt, free cash flow | "Compare TCS and Infosys fundamentals" |
+| **`artha-pulse`** | Headlines that name the company, plus NSE filings on request | "Why did Reliance move today?" |
+| **`artha-scout`** | Screens Nifty indices or your list against rules you write | "Which Nifty 50 stocks pass my rules?" |
+| **`artha-xray`** | Look-through stock and sector overlap across your funds | "Am I over-diversified?" |
+| **`artha-tax`** | Short vs long term, ₹1.25L exemption, ELSS lock-ins, cost of selling | "What would selling this cost me?" |
+| **`artha-ledger`** | Categorised spend from bank and card alert emails | "Where did my money go last month?" |
+
+<details>
+<summary><b>Full skill reference</b></summary>
+
+- **`artha-navigator`** resolves any fund to its current AMFI scheme code, then gives 1W / 1M / 3M / 6M / 1Y / 3Y / 5Y returns and 1Y maximum drawdown, or the weekly value of a whole portfolio against the Nifty 50 or Nifty 500. Every week comes from a real NAV; nothing is estimated. Merged funds whose history stopped are rejected, and "Cumulative" is treated as Growth.
+- **`artha-ticker`** returns quotes, history and week-over-week moves, handles splits and bonuses with adjusted closes, and knows the NSE trading calendar in IST, including holidays and Muhurat sessions (2026 bundled).
+- **`artha-analyst`** reports annual and quarterly revenue, profit and operating margin, growth, diluted EPS, P/E, ROE, debt-to-equity and free cash flow. It converts US-dollar reporters such as Infosys at the day's rate and says so, flags bonus/split and one-off-profit traps, and skips metrics that do not apply to banks.
+- **`artha-pulse`** ranks news headlines that actually name the company, and adds official NSE announcements (results, dividends, orders, management changes, ratings) when you opt in with `--nse`. It remembers what you have seen, so repeat runs show only what is new.
+- **`artha-scout`** screens the Nifty 50/100/200/500, Next 50, Midcap 150, Smallcap 100 or your own list against JSON rules. It returns passes, near-misses (failing exactly one rule, with the gap) and failures with reasons.
+- **`artha-xray`** shows look-through stock and sector exposure across all your funds, the rupees you effectively hold in each stock, and which fund pairs largely duplicate each other. It says how much of each fund's portfolio is disclosed, so understated overlap is never hidden.
+- **`artha-tax`** estimates short and long-term gains by asset class under FY 2026-27 rules, the ₹1.25L LTCG exemption, what selling a holding would cost, loss-harvesting candidates and ELSS 3-year lock-in dates. A fund switch is treated as the taxable sale it is.
+- **`artha-ledger`** turns card and UPI alert emails into a spending summary: categories, top merchants, per-card totals and refunds. It never outputs card numbers, UPI IDs or the names of people paid.
+
+</details>
+
+## How a number gets checked
+
+<p align="center">
+  <img src="assets/readme/how.svg" alt="How a number gets checked, in five steps. You ask what Infosys's P/E is. Claude picks artha-analyst and reads its known traps. A Python script fetches public data with no API keys. A trap check warns, converts or refuses. The answer gives a P/E of about 15.4 with the rupee rate stated. Public data is read only; your holdings, tax lots, rules and alerts stay on your machine." width="100%">
+</p>
+
+1. **You ask** in plain language.
+2. **Claude picks a skill** from its description and reads its `SKILL.md`: when to use it, the traps it knows, and how to report.
+3. **A script fetches and computes.** Numbers come from deterministic Python, not from a model's memory. Results are cached on disk for minutes to a day.
+4. **The trap check runs.** A figure is flagged, converted with the rate disclosed, or withheld. It is never silently guessed.
+5. **Claude explains the result**, including every warning the script raised, and ends with a reminder to verify before acting.
+
+<details>
+<summary><b>Design decisions</b></summary>
+
+- **Scripts compute, Claude explains.** The arithmetic is repeatable and testable. The model's job is to choose the skill and report clearly.
+- **Traps live where they are met.** Stale scheme codes, "Cumulative" = Growth, reporting currency, bonus-adjusted EPS and holiday gaps are written into the skill that handles them, so they are caught every time.
+- **Observations, never advice.** Artha states what the data shows. It does not say buy, sell or switch.
+- **No credentials, no write access.** No broker connection, no login, nothing to configure beyond optional cache folders.
+
+</details>
+
+## Data sources
+
+Public data only. No account, no login, no API key.
+
+| Source | Used by | What it provides |
+|---|---|---|
+| **AMFI** (`NAVAll.txt`) | navigator | Active scheme list, ISINs, daily NAV |
+| **mfapi.in** | navigator | Full daily NAV history per scheme |
+| **Yahoo Finance** (public endpoints) | ticker, navigator, analyst | Prices, history, splits, index levels, fundamentals, USD/INR |
+| **Google News** (India RSS) | pulse | Headlines that name the company |
+| **NSE index lists** | scout | Constituents of Nifty 50/100/200/500, Next 50, Midcap 150, Smallcap 100 |
+| **NSE corporate announcements** (opt-in) | pulse | Official filings, only with `--nse` |
+| **Bundled holiday list** | ticker | NSE holidays and special sessions for 2026. 2027 is added when NSE publishes it; until then the calendar says so |
+
+Yahoo, Google and NSE endpoints are public but unofficial. They can change or rate-limit automated requests. When one does, the skills say so instead of returning a stale number. Confirm any date you plan around on [nseindia.com](https://www.nseindia.com).
+
+<details>
+<summary><b>Responsible data use</b></summary>
+
+- **Artha identifies itself.** Every request carries the User-Agent `artha-skill/<version> (+repository URL)`, except the opt-in NSE call below.
+- **NSE filings are opt-in.** NSE refuses clients that identify themselves, so `--nse` sends a browser-style User-Agent and a cookie handshake. It is off by default, Claude asks before using it, and whether to use it is your decision: check NSE's terms first.
+- **Low volume.** Requests run one at a time with a short pause between uncached fetches, and results are cached so repeat questions do not hit the source again.
+- **No logins, no workarounds.** Artha never uses credentials, solves CAPTCHAs or touches an account.
+- **Personal analysis.** Artha is built for analysing your own portfolio. It does not host, resell or redistribute any provider's data, and each provider's terms apply to how you use it.
+
+Full detail is in [PRIVACY.md](PRIVACY.md).
+
+</details>
+
+## Screenshots
+
+| ![artha-navigator](screenshots/navigator.png) | ![artha-tax](screenshots/tax.png) |
+|---|---|
+| *artha-navigator: weekly value vs the Nifty 500, from real NAVs* | *artha-tax: lots, ELSS lock-ins and what selling would cost* |
+
+<p align="center">
+  <img src="screenshots/xray.png" alt="artha-xray: look-through overlap across sample funds, with disclosure warnings" width="60%"><br>
+  <i>artha-xray: look-through overlap, with disclosure warnings</i>
+</p>
+
+<details>
+<summary>Terminal walkthrough (animated)</summary>
+
+<p align="center">
+  <img src="screenshots/artha-demo.gif" alt="Artha terminal walkthrough: market calendar, company financials, capital-gains estimate, fund overlap" width="100%">
+</p>
+
+</details>
+
+All terminal images are real script output on the bundled **sample data** (invented holdings). They are not mock-ups.
+
+## Customization
+
+### Bring your own data
 
 | You provide | Used by | Start from |
 |---|---|---|
@@ -230,67 +235,20 @@ Artha ships with invented sample files. Copy one, replace the values with yours,
 | Fund holdings and rupee values | xray | `skills/artha-xray/example.indmoney.json`, `example.values.json` |
 | Screening rules | scout | `skills/artha-scout/rules.example.json` |
 | Bank alert emails (as JSON) | ledger | `skills/artha-ledger/alerts.example.json` |
+| Spend categories | ledger | `skills/artha-ledger/categories.json` |
 
 `.gitignore` already excludes the cache folders. Never commit files that contain your real holdings.
 
-### Configuration (optional)
+### Cache folders
 
 | Variable | Purpose | Default |
 |---|---|---|
-| `MFNAV_CACHE` | NAV cache folder (navigator) | `.mfnav-cache` |
-| `PRICES_CACHE` | Price cache folder (ticker) | `.prices-cache` |
-| `FUND_CACHE` | Fundamentals cache folder (analyst) | `.fund-cache` |
-| `NEWS_CACHE` | News cache folder (pulse) | `.news-cache` |
+| `MFNAV_CACHE` | NAV cache (navigator) | `.mfnav-cache` |
+| `PRICES_CACHE` | Price cache (ticker) | `.prices-cache` |
+| `FUND_CACHE` | Fundamentals cache (analyst) | `.fund-cache` |
+| `NEWS_CACHE` | News cache (pulse) | `.news-cache` |
 
-<details>
-<summary><b>Network access needed</b></summary>
-
-`portal.amfiindia.com`, `api.mfapi.in`, `query1.finance.yahoo.com` and `query2.finance.yahoo.com`, `www.nseindia.com`, `nsearchives.nseindia.com`, `www.niftyindices.com`, `news.google.com`. If your environment restricts outbound domains, allow these.
-
-</details>
-
----
-
-## Architecture
-
-```
-┌──────────────────────────────────────────────────────┐
-│       Claude  (Claude Code · Cowork · plugin-aware)   │
-│   "How did my funds do against the Nifty 500?"        │
-└──────────────────────────┬───────────────────────────┘
-                           │ picks a skill from its description
-┌──────────────────────────▼───────────────────────────┐
-│                 Artha skills (SKILL.md)               │
-│  navigator │ ticker │ analyst │ pulse │ scout         │
-│  xray │ tax │ ledger                                  │
-│  when to use · known traps · how to report            │
-└──────────────────────────┬───────────────────────────┘
-                           │ runs
-┌──────────────────────────▼───────────────────────────┐
-│          Python scripts  (stdlib only, no keys)       │
-│  resolve · returns · quote · weekly · gains · screen  │
-│  short on-disk caches                                 │
-└───────────┬──────────────────────────────┬───────────┘
-            │ public data                  │ your files
-┌───────────▼───────────────┐  ┌───────────▼───────────┐
-│ AMFI · mfapi.in · Yahoo   │  │ holdings · lots ·     │
-│ NSE · Google News ·       │  │ rules · fund holdings │
-│ NSE index lists           │  │ (never leave your     │
-│                           │  │  machine via Artha)   │
-└───────────────────────────┘  └───────────────────────┘
-```
-
-**Key design decisions:**
-
-- **Scripts compute, Claude explains.** Numbers come from deterministic code, not from a model's memory. The `SKILL.md` tells Claude how to report them, including every warning the script raises.
-- **Traps are documented per skill.** Stale scheme codes, `Cumulative` = Growth, currency of reporting, bonus-adjusted EPS and holiday gaps are written down where the skill is read, so they are handled every time.
-- **Warn, convert or refuse.** A figure is flagged, converted with the rate disclosed, or withheld. It is never silently guessed.
-- **Observations, never advice.** Artha states what the data shows. It does not say buy, sell or switch.
-- **No credentials, no write access.** There is no broker connection, no login and nothing to configure beyond optional cache folders.
-
----
-
-## Privacy and Safety
+## Privacy and safety
 
 | Control | Status |
 |---|---|
@@ -300,103 +258,99 @@ Artha ships with invented sample files. Copy one, replace the values with yours,
 | Card numbers, UPI IDs and payee names never output | ✅ |
 | Bundled examples use invented data only | ✅ |
 | Read-only: no orders, no account access | ✅ |
-| Self-identifying User-Agent on every request, except opt-in NSE filings | ✅ |
 | Open source: every line auditable | ✅ |
 | Data-source guarantees | ○ Public, unofficial endpoints; can change without notice |
-| NSE official filings | ○ Opt-in (`--nse`); NSE only serves browser-style requests |
 | Tax outputs accepted for filing | ○ Estimates only; confirm with a chartered accountant |
 
-**Privacy and security:** [PRIVACY.md](PRIVACY.md) lists exactly what stays on your machine and what each source receives. The skills that handle your personal data (`artha-tax`, `artha-xray`, `artha-ledger`) make no network requests at all. Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
+[PRIVACY.md](PRIVACY.md) lists exactly what stays on your machine and what each source receives. Report vulnerabilities privately as described in [SECURITY.md](SECURITY.md).
 
-**On regulation:** Artha is not a SEBI-registered investment adviser or research analyst, and nothing it produces is investment advice.
+## Is this for you?
 
----
+**Good fit if you** invest in Indian mutual funds and stocks, want checkable numbers behind your own decisions, use Claude Code, and want warnings rather than silent guesses when data is stale, converted or approximate.
+
+**Not a fit if you** want buy, sell or "which fund is best" recommendations, want to place orders, need a point-and-click dashboard, or need figures to file a tax return.
+
+<details>
+<summary>Compared to a typical portfolio-tracker app</summary>
+
+| | **Artha** | Typical tracker app |
+|---|---|---|
+| **Where your holdings live** | In files on your machine | On the vendor's servers |
+| **Source code** | Fully open, MIT | Usually closed |
+| **Pricing** | Free | Often a free tier plus subscription |
+| **How you ask** | Plain language to Claude | Fixed screens and filters |
+| **Customization** | Edit the rules, categories and tax lots, or fork it | Feature requests into someone else's backlog |
+| **Exit** | Delete the folder | Account closure and data export |
+
+Artha does not compete on a polished app. It competes on being right and showing its work.
+
+</details>
 
 ## Roadmap
 
-**v0.1: Current**
-
-- ✅ Real fund NAV history, returns and portfolio-vs-benchmark series
-- ✅ NSE/BSE prices, history and trading calendar (2026)
-- ✅ Reported financials with currency and bonus/split traps flagged
-- ✅ Company-named news, with official NSE announcements on request (`--nse`)
-- ✅ Rules-based screener over seven NSE indices
-- ✅ Fund look-through overlap with disclosure warnings
-- ✅ FY 2026-27 capital-gains estimates and ELSS lock-ins
-- ✅ Spend parsing from bank alerts
-- ✅ Strict plugin validation and live smoke tests
-
-**v0.2: Next**
-
-- [ ] 2027 NSE holiday list, checked against NSE's circular (NSE published the 2026 list in late December 2025)
+- ✅ **v0.1** Fund NAVs and returns, NSE/BSE prices and 2026 calendar, financials with currency and bonus traps, company news with opt-in NSE filings, a screener over seven NSE indices, fund overlap, FY 2026-27 capital-gains estimates, spend parsing, plugin validation and live smoke tests
+- ⏳ **Claude plugin directory** Instruction-only edition submitted from the `directory` branch, in review
+- [ ] 2027 NSE holiday list, checked against NSE's circular
 - [ ] Price and rule alerts between runs
 - [ ] SIP-aware returns (XIRR) alongside the weekly portfolio series
-- [ ] Claude plugin directory listing (instruction-only edition on the `directory` branch, in progress)
-
-**v1.0: Future**
-
 - [ ] Optional MCP connector so the same data works outside Claude Code
-- [ ] More asset classes: bonds, REITs, gold ETFs in the portfolio series
+- [ ] More asset classes: bonds, REITs and gold ETFs in the portfolio series
 
 *Roadmap items are intentions, not commitments.*
 
----
+## File structure
+
+<details>
+<summary>Show the repository layout</summary>
+
+```
+artha-skill/
+├── .claude-plugin/
+│   ├── plugin.json            # plugin manifest
+│   └── marketplace.json       # lets `claude plugin marketplace add` find it
+├── skills/
+│   ├── artha-navigator/       # SKILL.md, scripts/nav.py, holdings.example.json
+│   ├── artha-ticker/          # SKILL.md, scripts/prices.py, data/nse_holidays.json
+│   ├── artha-analyst/         # SKILL.md, scripts/fund.py
+│   ├── artha-pulse/           # SKILL.md, scripts/news.py
+│   ├── artha-scout/           # SKILL.md, scripts/screen.py, rules.example.json
+│   ├── artha-xray/            # SKILL.md, scripts/overlap.py, example files
+│   ├── artha-tax/             # SKILL.md, scripts/tax.py, lots.example.json
+│   └── artha-ledger/          # SKILL.md, scripts/parse.py, categories.json
+├── tests/
+│   ├── static_check.py        # offline checks, run in CI
+│   └── smoke.sh               # live checks against public data
+├── assets/readme/             # images in this README
+├── screenshots/               # real terminal output on sample data
+├── AGENTS.md                  # rules for AI coding agents working here
+├── CONTRIBUTING.md
+├── PRIVACY.md
+├── SECURITY.md
+└── LICENSE
+```
+
+</details>
 
 ## Contributing
 
-Artha is open source under MIT and welcomes contributions. See [CONTRIBUTING.md](CONTRIBUTING.md).
+The most valuable contribution is a **data trap**: a number that looked right and was not. Open an issue with the *Data source broke* template, or see [CONTRIBUTING.md](CONTRIBUTING.md) to add tax rules, screener metrics or fund-house aliases. AI coding agents should read [AGENTS.md](AGENTS.md) first.
 
-**Ways to contribute:**
+Before a pull request, run:
 
-- Report a data trap you hit: a number that looked right and was not (use the *Data source broke* issue template)
-- Add or correct tax rules, with the source
-- Add a screener metric or a fund-house alias
-- Improve documentation and examples
-- Star the repo: it helps more Indian investors find it
+```bash
+python3 tests/static_check.py
+bash tests/smoke.sh        # needs network
+```
 
-**To contribute code:**
+## Built by
 
-1. Fork the repository
-2. Create a feature branch
-3. Run `python3 tests/static_check.py` and `bash tests/smoke.sh`
-4. Open a pull request with a clear description
-
----
-
-## Stack
-
-| Layer | Technology |
-|---|---|
-| Skill instructions | Claude Agent Skills (`SKILL.md`) |
-| Packaging | Claude Code plugin and marketplace manifests |
-| Logic | Python 3.9+, standard library only |
-| Data | AMFI, mfapi.in, Yahoo Finance, NSE, Google News RSS |
-| Tests and CI | Bash smoke tests, a static checker, GitHub Actions |
-
----
+**Pavan Galiveeti**, Lead PM building AI products. Built in public with [Claude](https://claude.com) as pair programmer. Feedback welcome on [LinkedIn](https://linkedin.com/in/pavangaliveeti) or in [issues](https://github.com/gpavan1992/artha-skill/issues).
 
 ## License
 
-Artha is licensed under **MIT**.
+[MIT](LICENSE). Free to use, modify and redistribute, including commercially. Keep the copyright notice.
 
-This means:
-
-- ✅ Free to use for any purpose
-- ✅ Free to modify and extend
-- ✅ Commercial use permitted
-- ✅ Free to redistribute, including in closed-source work
-- ⚠️ Keep the copyright and licence notice with copies
-
----
-
-## Built By
-
-**Pavan Galiveeti**, Lead PM building AI products for enterprise teams. Built with [Claude](https://claude.com) as AI pair programmer. Building in public. All feedback welcome.
-
-- LinkedIn: [linkedin.com/in/pavangaliveeti](https://linkedin.com/in/pavangaliveeti)
-- GitHub: [github.com/gpavan1992](https://github.com/gpavan1992)
-
----
-
-*Artha is not investment advice and is not a SEBI-registered adviser.*
-*Data comes from public sources that can be wrong or delayed. Verify before you act.*
+<p align="center">
+  <img src="assets/readme/mark.svg" alt="Artha" width="64"><br>
+  <sub>Not investment advice. Data comes from public sources that can be wrong or delayed. Verify before you act.</sub>
+</p>
